@@ -1,0 +1,8 @@
+{
+    "require": {
+        "marketmesuite/phranken-php": "dev-master"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "3.7.*"
+    }
+}

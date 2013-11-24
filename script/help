@@ -1,0 +1,71 @@
+NAME
+    password-locker - create and manage passwords in an encrypted file
+
+SYNOPSIS
+    password-locker command [options]
+
+DESCRIPTION
+    The password-locker program is a utility that manages a list of passwords in an encrypted file
+
+OPTIONS
+    Command line option specifications are processed from left to right.
+    Options can not be specified more than once. If conflicting options
+    are specified, earlier specifications override later ones.
+
+    All commands require the following options:
+
+    <required>
+    -f         The path to the password archive
+
+    <optional>
+    -a         An mcrypt algorithm (list available algorithms with list-alogs)
+               defaults to MCRYPT_RIJNDAEL_256
+
+    -m         An mcrypt mode (list available modes with list-modes)
+               defaults to MCRYPT_MODE_CBC
+
+    -h         A hashing algorithm (list available algorithms with list-hash-algos)
+               defaults to sha256
+
+    -p         The password protecting the archive.
+               This will be prompted for if not set
+
+
+    <commands>
+    create     Creates a new password entry. If the key already exists the user
+               will be prompted to confirm overwrite.
+
+        --id   <String>            An id to use as reference for this password
+        --raw  [optional] <String> The raw password string. If a value is not
+                                   defined then a random password is generated
+
+
+    update     Alias of create
+
+
+    read       Reads a single password out of the encrypted file
+
+        --id   <String> The id of the password to read
+
+
+    read-all   Reads the entire archive and prints each id:pass to screen
+
+        --b64d [optional] <Void> When provided the id and pass are base64 decoded
+                                 before being printed (this is defaulted to false)
+
+    list-keys  Same as read-all but only prints recorded ids
+
+
+    delete     Deletes a id:pass pair from the archive after asking for confirmation
+
+        --id   <String> The id of the password to delete
+
+
+UTILITY COMMANDS
+
+    list-algos Lists all valid mcrypt algorithms
+
+    list-modes Lists all valid mcrypt modes
+
+    list-hash-algos Lists all valid hash() algorithms
+
