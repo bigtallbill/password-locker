@@ -1,0 +1,6 @@
+language: php
+php:
+  - 5.4
+script: "./run.sh"
+before_script: "cd tests"
+before_script: "cd .."
