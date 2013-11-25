@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/bigtallbill/password-locker.png?branch=master)](https://travis-ci.org/bigtallbill/password-locker)
+
 password-locker
 ===============
 
