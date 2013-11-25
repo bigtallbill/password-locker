@@ -3,3 +3,4 @@ tests/report
 composer.lock
 vendor
 .idea
+build
