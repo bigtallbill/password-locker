@@ -3,4 +3,4 @@ tests/report
 composer.lock
 vendor
 .idea
-build
+password-locker.phar
