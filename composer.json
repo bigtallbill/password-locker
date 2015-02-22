@@ -1,6 +1,8 @@
 {
+  "name": "password-locker",
   "require": {
-    "marketmesuite/phranken-php": "dev-master"
+    "marketmesuite/phranken-php": "dev-master",
+    "symfony/console": "2.6.4"
   },
   "require-dev": {
     "phpunit/phpunit": "3.7.*"
