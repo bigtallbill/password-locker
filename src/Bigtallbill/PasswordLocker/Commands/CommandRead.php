@@ -8,22 +8,25 @@
 
 namespace Bigtallbill\PasswordLocker\Commands;
 
-
-use Bigtallbill\PasswordLocker\PasswordLocker;
-use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class CommandListAlgos extends Command
+class CommandRead extends CommandBase
 {
     protected function configure()
     {
+        $this->setName('read')
+            ->setDescription('read a single password');
         parent::configure();
-        $this->setName('list-algos')->setDescription('lists all available algorithms');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $output->writeln(implode(',', PasswordLocker::getAlgorithms()));
+        $this->configureCryptMethod($input);
+        $this->getPassword($output);
+        $this->decryptFile($input, $output);
+
+        $id = $input->getArgument('id');
+        $output->writeln($id . ' : ' . $this->passwordLocker->read($id));
     }
 }
