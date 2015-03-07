@@ -11,7 +11,7 @@ namespace Bigtallbill\PasswordLocker\Commands;
 
 use Symfony\Component\Console\Input\InputArgument;
 
-class ACommandBaseId extends ACommandBase
+abstract class ACommandBaseId extends ACommandBase
 {
     protected function configure()
     {
