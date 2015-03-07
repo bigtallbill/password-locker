@@ -12,7 +12,7 @@
   "prePush": {},
   "commitMsg": {
     "firstWordImperative": true,
-    "maxSummaryLength": 50,
+    "maxSummaryLength": 72,
     "maxContentLength": 72,
     "summaryIgnoreUrls": true,
     "contentIgnoreUrls": true,
