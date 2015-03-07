@@ -13,3 +13,5 @@ use MarketMeSuite\Phranken\Spl\SplClassLoader;
 // register local autoloader
 $loader = new SplClassLoader('Bigtallbill', dirname(dirname(__FILE__)) . '/src');
 $loader->register();
+
+define('TEST_ASSETS', __DIR__ . '/assets');
