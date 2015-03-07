@@ -11,7 +11,7 @@ namespace Bigtallbill\PasswordLocker\Commands;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class CommandRead extends CommandBaseId
+class CommandRead extends ACommandBaseId
 {
     protected function configure()
     {

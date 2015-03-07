@@ -13,7 +13,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class CommandReadAll extends CommandBase
+class ACommandReadAll extends ACommandBase
 {
     protected function configure()
     {
