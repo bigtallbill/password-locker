@@ -30,7 +30,7 @@ class CommandReadAll extends ACommandBase
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $this->configureCryptMethod($input);
-        $this->getPassword($output);
+        $this->getPassword($output, $input);
         $this->decryptFile($input, $output);
 
         $decrypted = $this->passwordLocker->getDecrypted();

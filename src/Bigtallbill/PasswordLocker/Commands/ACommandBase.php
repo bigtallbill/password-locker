@@ -11,10 +11,13 @@ namespace Bigtallbill\PasswordLocker\Commands;
 
 use Bigtallbill\PasswordLocker\PasswordLocker;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Helper\DialogHelper;
+use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Question\Question;
 
 abstract class ACommandBase extends Command
 {
@@ -28,7 +31,8 @@ abstract class ACommandBase extends Command
         $this->addArgument('file', InputArgument::REQUIRED, 'path to password file')
             ->addOption('--algorithm', '-a', InputOption::VALUE_OPTIONAL, '', MCRYPT_RIJNDAEL_256)
             ->addOption('--mode', '-m', InputOption::VALUE_OPTIONAL, '', MCRYPT_MODE_CBC)
-            ->addOption('--hash', null, InputOption::VALUE_OPTIONAL, '', 'sha256');
+            ->addOption('--hash', null, InputOption::VALUE_OPTIONAL, '', 'sha256')
+            ->addOption('show-pass', null, InputOption::VALUE_NONE);
     }
 
     /**
@@ -59,11 +63,23 @@ abstract class ACommandBase extends Command
 
     /**
      * @param OutputInterface $output
+     * @param InputInterface $input
      */
-    protected function getPassword(OutputInterface $output)
+    protected function getPassword(OutputInterface $output, InputInterface $input)
     {
-        $dialog = $this->getHelperSet()->get('dialog');
-        $this->passwordLocker->setPass($dialog->askHiddenResponse($output, 'please enter your master password: '));
+        /** @var QuestionHelper $dialog */
+        $dialog = $this->getHelper('question');
+        $question = new Question('please enter your master password: ');
+        $question->setHidden(true);
+
+        if ($input->hasOption('show-pass')) {
+            if ($input->getOption('show-pass')) {
+                $question->setHidden(false);
+            }
+        }
+
+        $password = $dialog->ask($input, $output, $question);
+        $this->passwordLocker->setPass($password);
     }
 
     /**

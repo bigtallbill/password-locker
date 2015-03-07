@@ -23,7 +23,7 @@ class CommandRead extends ACommandBaseId
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $this->configureCryptMethod($input);
-        $this->getPassword($output);
+        $this->getPassword($output, $input);
         $this->decryptFile($input, $output);
 
         $id = $input->getArgument('id');

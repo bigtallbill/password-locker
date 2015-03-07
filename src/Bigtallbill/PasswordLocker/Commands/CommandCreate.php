@@ -27,7 +27,7 @@ class CommandCreate extends ACommandBaseId
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $this->configureCryptMethod($input);
-        $this->getPassword($output);
+        $this->getPassword($output, $input);
         $this->decryptFile($input, $output, true);
 
         // if id exists, ask to overwrite
