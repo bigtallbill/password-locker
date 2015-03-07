@@ -24,6 +24,6 @@ class CommandListAlgos extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $output->writeln(implode(',', PasswordLocker::getAlgorithms()));
+        $output->writeln(implode(PHP_EOL, PasswordLocker::getAlgorithms()));
     }
 }

@@ -24,6 +24,6 @@ class CommandListModes extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $output->writeln(implode(',', PasswordLocker::getModes()));
+        $output->writeln(implode(PHP_EOL, PasswordLocker::getModes()));
     }
 }
