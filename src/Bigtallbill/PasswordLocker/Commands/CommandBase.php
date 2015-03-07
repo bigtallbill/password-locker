@@ -26,7 +26,6 @@ class CommandBase extends Command
         $this->passwordLocker = new PasswordLocker();
 
         $this->addArgument('file', InputArgument::REQUIRED, 'path to password file')
-            ->addArgument('id', InputArgument::REQUIRED, 'name of password to work with')
             ->addOption('--algorithm', '-a', InputOption::VALUE_OPTIONAL, '', MCRYPT_RIJNDAEL_256)
             ->addOption('--mode', '-m', InputOption::VALUE_OPTIONAL, '', MCRYPT_MODE_CBC)
             ->addOption('--hash', null, InputOption::VALUE_OPTIONAL, '', 'sha256');
