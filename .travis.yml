@@ -1,6 +1,5 @@
 language: php
 php:
   - 5.4
-script: "./run.sh"
-before_script: "composer update; cd tests"
-after_script: "cd .."
+script: "./runtests.sh"
+before_script: "composer update"
