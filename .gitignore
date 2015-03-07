@@ -1,6 +1,5 @@
 tests/build
 tests/report
-composer.lock
 vendor
 .idea
 password-locker.phar
