@@ -1,10 +1,10 @@
 {
   "name": "password-locker",
   "require": {
-    "marketmesuite/phranken-php": "dev-master",
     "symfony/console": "2.6.4"
   },
   "require-dev": {
-    "phpunit/phpunit": "3.7.*"
+    "phpunit/phpunit": "3.7.*",
+    "bigtallbill/hooker": "0.1.3"
   }
 }

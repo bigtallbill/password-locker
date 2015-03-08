@@ -8,14 +8,10 @@
 
 require dirname(dirname(__FILE__)) . '/vendor/autoload.php';
 
-use MarketMeSuite\Phranken\Commandline\SimpleLog;
-use MarketMeSuite\Phranken\Commandline\CommandPrompt;
-use MarketMeSuite\Phranken\Spl\SplClassLoader;
-use MarketMeSuite\Phranken\Commandline\ArgUtils;
-use Bigtallbill\PasswordLocker\PasswordLocker;
 
 // register local autoloader
-$loader = new SplClassLoader('Bigtallbill', dirname(dirname(__FILE__)) . '/src');
+$loader = new \Composer\Autoload\ClassLoader();
+$loader->add('Bigtallbill', dirname(dirname(__FILE__)) . '/src');
 $loader->register();
 
 
