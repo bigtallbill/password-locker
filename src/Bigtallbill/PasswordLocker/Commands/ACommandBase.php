@@ -38,8 +38,9 @@ abstract class ACommandBase extends Command
 
     /**
      * @param InputInterface $input
+     * @param PasswordLocker $passwordLocker
      */
-    public function configureCryptMethod(InputInterface $input)
+    public function configureCryptMethod(InputInterface $input, PasswordLocker $passwordLocker)
     {
         $hashMethod = 'sha256';
         $algorithm = MCRYPT_RIJNDAEL_256;
@@ -57,16 +58,17 @@ abstract class ACommandBase extends Command
             $hashMethod = $input->getOption('--hash');
         }
 
-        $this->passwordLocker->setAlgorithm($algorithm);
-        $this->passwordLocker->setHashMethod($hashMethod);
-        $this->passwordLocker->setMode($mode);
+        $passwordLocker->setAlgorithm($algorithm);
+        $passwordLocker->setHashMethod($hashMethod);
+        $passwordLocker->setMode($mode);
     }
 
     /**
      * @param OutputInterface $output
      * @param InputInterface $input
+     * @param PasswordLocker $passwordLocker
      */
-    protected function getPassword(OutputInterface $output, InputInterface $input)
+    protected function getPassword(OutputInterface $output, InputInterface $input, PasswordLocker $passwordLocker)
     {
         if ($input->getOption('pass')) {
             $password = $input->getOption('pass');
@@ -85,26 +87,26 @@ abstract class ACommandBase extends Command
             $password = $dialog->ask($input, $output, $question);
         }
 
-        $this->passwordLocker->setPass($password);
+        $passwordLocker->setPass($password);
     }
 
     /**
-     * @param InputInterface $input
+     * @param string $path
      * @param OutputInterface $output
+     * @param PasswordLocker $passwordLocker
      * @param bool $createMode
      */
-    protected function decryptFile(InputInterface $input, OutputInterface $output, $createMode = false)
+    protected function decryptFile($path, OutputInterface $output, PasswordLocker $passwordLocker, $createMode = false)
     {
-        $filePath = $input->getArgument('file');
-        $fileExists = file_exists($filePath);
+        $fileExists = file_exists($path);
 
         if (!$fileExists && $createMode === false) {
-            $output->writeln('the file "' . $filePath . '" does not exist');
+            $output->writeln('the file "' . $path . '" does not exist');
             exit();
         }
 
         if ($fileExists) {
-            $archiveLoaded = $this->passwordLocker->loadArchive($filePath);
+            $archiveLoaded = $passwordLocker->loadArchive($path);
         } else {
             $archiveLoaded = false;
         }

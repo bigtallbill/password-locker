@@ -25,9 +25,9 @@ class CommandDelete extends ACommandBaseId
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $this->configureCryptMethod($input);
-        $this->getPassword($output, $input);
-        $this->decryptFile($input, $output);
+        $this->configureCryptMethod($input, $this->passwordLocker);
+        $this->getPassword($output, $input, $this->passwordLocker);
+        $this->decryptFile($input->getArgument('file'), $output, $this->passwordLocker);
 
         // if id exists, ask to overwrite
         $id = $input->getArgument('id');
