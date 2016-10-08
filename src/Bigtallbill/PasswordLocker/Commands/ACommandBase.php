@@ -73,18 +73,7 @@ abstract class ACommandBase extends Command
         if ($input->getOption('pass')) {
             $password = $input->getOption('pass');
         } else {
-            /** @var QuestionHelper $dialog */
-            $dialog = $this->getHelper('question');
-            $question = new Question('please enter your master password: ');
-            $question->setHidden(true);
-
-            if ($input->hasOption('show-pass')) {
-                if ($input->getOption('show-pass')) {
-                    $question->setHidden(false);
-                }
-            }
-
-            $password = $dialog->ask($input, $output, $question);
+            $password = $this->askForPassword($output, $input);
         }
 
         $passwordLocker->setPass($password);
@@ -129,5 +118,27 @@ abstract class ACommandBase extends Command
     protected function encryptFile(InputInterface $input, OutputInterface $output)
     {
         $this->passwordLocker->saveArchive($input->getArgument('file'));
+    }
+
+    /**
+     * @param OutputInterface $output
+     * @param InputInterface $input
+     * @return string
+     */
+    protected function askForPassword(OutputInterface $output, InputInterface $input)
+    {
+        /** @var QuestionHelper $dialog */
+        $dialog = $this->getHelper('question');
+        $question = new Question('please enter your master password: ');
+        $question->setHidden(true);
+
+        if ($input->hasOption('show-pass')) {
+            if ($input->getOption('show-pass')) {
+                $question->setHidden(false);
+            }
+        }
+
+        $password = $dialog->ask($input, $output, $question);
+        return $password;
     }
 }
