@@ -25,6 +25,12 @@ class CommandReadAll extends ACommandBase
             InputOption::VALUE_NONE,
             'When supplied will decode the passwords to readable text'
         );
+        $this->addOption(
+            'json',
+            null,
+            InputOption::VALUE_NONE,
+            'When supplied will decode the passwords to json'
+        );
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -41,6 +47,11 @@ class CommandReadAll extends ACommandBase
                 $decryptedB64d[base64_decode($key)] = base64_decode($value);
             }
             $decrypted = $decryptedB64d;
+        }
+
+        if ($input->getOption('json')) {
+            echo json_encode($decrypted, JSON_PRETTY_PRINT) . PHP_EOL;
+            return;
         }
 
         $table = new Table($output);
