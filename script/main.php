@@ -25,4 +25,5 @@ $app->add(new \Bigtallbill\PasswordLocker\Commands\CommandRead());
 $app->add(new \Bigtallbill\PasswordLocker\Commands\CommandReadAll());
 $app->add(new \Bigtallbill\PasswordLocker\Commands\CommandCreate());
 $app->add(new \Bigtallbill\PasswordLocker\Commands\CommandDelete());
+$app->add(new \Bigtallbill\PasswordLocker\Commands\CommandMerge());
 $app->run();
