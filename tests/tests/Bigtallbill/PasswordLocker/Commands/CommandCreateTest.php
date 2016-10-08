@@ -28,6 +28,13 @@ class CommandCreateTest extends \PHPUnit_Framework_TestCase
         $this->testFilePath = sys_get_temp_dir() . '/phpunit_pwdfile';
     }
 
+    protected function tearDown()
+    {
+        parent::tearDown();
+        unlink($this->testFilePath);
+    }
+
+
     public function testExecute()
     {
         $command = $this->app->find('create');
@@ -47,6 +54,31 @@ class CommandCreateTest extends \PHPUnit_Framework_TestCase
         );
 
         $this->assertRegExp("/password: $/", $commandTester->getDisplay(), 'only the password prompt should be shown');
+        $this->assertFileExists($this->testFilePath, 'the file should have been created');
+    }
+
+    public function testCreate()
+    {
+        $command = $this->app->find('create');
+        $commandTester = new CommandTester($command);
+
+        $dialog = $command->getHelper('question');
+        $dialog->setInputStream($this->getInputStream("Test\n"));
+
+        $commandTester->execute(
+            array(
+                'command' => $command->getName(),
+                'file' => $this->testFilePath,
+                'id' => 'testkey',
+                'raw' => 'foo',
+                '--show-pass' => null
+            ),
+            [
+                'pass' => 'password',
+                'verbosity' => 5
+            ]
+        );
+
         $this->assertFileExists($this->testFilePath, 'the file should have been created');
     }
 

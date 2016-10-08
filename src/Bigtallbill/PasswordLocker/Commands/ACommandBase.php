@@ -32,6 +32,7 @@ abstract class ACommandBase extends Command
             ->addOption('--algorithm', '-a', InputOption::VALUE_OPTIONAL, '', MCRYPT_RIJNDAEL_256)
             ->addOption('--mode', '-m', InputOption::VALUE_OPTIONAL, '', MCRYPT_MODE_CBC)
             ->addOption('--hash', null, InputOption::VALUE_OPTIONAL, '', 'sha256')
+            ->addOption('pass', null, InputOption::VALUE_REQUIRED, 'set password when in non interactive mode')
             ->addOption('show-pass', null, InputOption::VALUE_NONE);
     }
 
@@ -67,18 +68,23 @@ abstract class ACommandBase extends Command
      */
     protected function getPassword(OutputInterface $output, InputInterface $input)
     {
-        /** @var QuestionHelper $dialog */
-        $dialog = $this->getHelper('question');
-        $question = new Question('please enter your master password: ');
-        $question->setHidden(true);
+        if ($input->getOption('pass')) {
+            $password = $input->getOption('pass');
+        } else {
+            /** @var QuestionHelper $dialog */
+            $dialog = $this->getHelper('question');
+            $question = new Question('please enter your master password: ');
+            $question->setHidden(true);
 
-        if ($input->hasOption('show-pass')) {
-            if ($input->getOption('show-pass')) {
-                $question->setHidden(false);
+            if ($input->hasOption('show-pass')) {
+                if ($input->getOption('show-pass')) {
+                    $question->setHidden(false);
+                }
             }
+
+            $password = $dialog->ask($input, $output, $question);
         }
 
-        $password = $dialog->ask($input, $output, $question);
         $this->passwordLocker->setPass($password);
     }
 
