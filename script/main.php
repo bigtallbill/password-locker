@@ -17,7 +17,7 @@ $loader->register();
 
 // symphony app
 
-$app = new \Symfony\Component\Console\Application('password-locker', '1.0.0');
+$app = new \Symfony\Component\Console\Application('password-locker', '2.1.0');
 $app->add(new \Bigtallbill\PasswordLocker\Commands\CommandListAlgos());
 $app->add(new \Bigtallbill\PasswordLocker\Commands\CommandListHashAlgos());
 $app->add(new \Bigtallbill\PasswordLocker\Commands\CommandListModes());
