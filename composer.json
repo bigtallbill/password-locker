@@ -1,5 +1,7 @@
 {
-  "name": "password-locker",
+  "name": "bigtallbill/passwordlocker",
+  "license": "MIT",
+  "version": "2.1.0",
   "require": {
     "symfony/console": "2.6.4"
   },
